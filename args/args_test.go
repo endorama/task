@@ -90,6 +90,18 @@ func TestArgsV3(t *testing.T) {
 				},
 			},
 		},
+		{
+			Args: []string{"task", "--", "arg"},
+			ExpectedCalls: []taskfile.Call{
+				{Task: "task"},
+			},
+			ExpectedGlobals: &taskfile.Vars{
+				Keys: []string{"CLI_ARGS"},
+				Mapping: map[string]taskfile.Var{
+					"CLI_ARGS": {Static: "arg"},
+				},
+			},
+		},
 	}
 
 	for i, test := range tests {
